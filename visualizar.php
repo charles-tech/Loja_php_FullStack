@@ -1,6 +1,10 @@
 <?php
 session_start();
+if(empty($_SESSION)){
+    print("<script>location.href='index.php';</script>");
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,15 +30,11 @@ session_start();
             <!-- menu Desketop -->
             <ul class="right hide-on-med-and-down">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="">Vestidos</a></li>
-                <li><a href="">Contatos</a></li>
             </ul>
 
             <!-- menu mobile -->
             <ul id="slide-out" class="sidenav">
-                <li><a href=""> <i class="material-icons left">home</i>Home</a></li>
-                <li><a href=""> <i class="material-icons left">favorite</i>Vestidos</a></li>
-                <li><a href=""> <i class="material-icons left">call</i>Contatos</a></li>
+                <li><a href="index.php"> <i class="material-icons left">home</i>Home</a></li>
             </ul>
 
         </div>
@@ -43,41 +43,83 @@ session_start();
 
     <?php
 
-            if (isset($_SESSION['msg'])) {
-                echo $_SESSION['msg'];
-                unset($_SESSION['msg']);
-            }
+    print "Olá, ". $_SESSION["nome"];
+    print "<a href='logout.php'class-'btn btn-danger'> Sair</a>";
 
 
-            require './Conn.php';
-            require './Todo.php';
-            $formData = filter_input_array(INPUT_POST, FILTER_DEFAULT);    
+// if (isset($_SESSION['msg'])) {
+//     echo $_SESSION['msg'];
+//     unset($_SESSION['msg']);
+// }
 
-            $listtodos = new Todo();
-              $result_todos = $listtodos->list();
+
+require './Conn.php';
+require './Todo.php';
+$formData = filter_input_array(INPUT_POST, FILTER_DEFAULT);   
+
+$result_where = new Todo();
+$value = $result_where->list();
+
+
+if(!empty($formData['SendTodo'])){
+    // var_dump($formData);
+
+        $result_where = new Todo();
+        $result_where->formData = $formData;
+        $value = $result_where->listWhere();
+        extract($value);
+
+      
+
+}
+
+   
+             
         ?>
 
     <div class="row container">
-        <h1>Lista de Menssagem</h1><BR></BR>
+        <div class="col s12">
+            <h3 class="light">Lista de Menssagem</h3>
+        </div>
+
+        <form action="?router=Site/cadastro/" method="post">
+
+            <div class="input-field col s12 m6">
+                <input type="date" name="creaded" id="nome" required>
+            </div>
+
+            <div class="input fiel col s12 ">
+                <input type="submit" value="Filtrar" class="btn-small" name="SendTodo">
+            </div>
+        </form>
+    </div>
 
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Celular</th>
-                    <th scope="col">Menssagem</th>
-                    <th scope="col">Data Menssagem</th>
+    <div class="row container">
+        <div class="col s12" id="contato">
+            <h3 class="light">Lista de Menssagem</h3>
+        </div>
+        <div class="col s12">
 
 
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <?php
 
-                foreach($result_todos as $row_todo){
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Celular</th>
+                        <th scope="col">Menssagem</th>
+                        <th scope="col">Data Menssagem</th>
+
+
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <?php
+
+                foreach($value as $row_todo){
                 extract($row_todo);
              
                 echo "
@@ -99,38 +141,14 @@ session_start();
 
 
 
-                // <?php
-                //      foreach($result_todos as $row_todo){
-                //         extract($row_todo);
-                //        // var_dump($row_todo);
-                //         $dataBr = "Data: " .date('d/m/Y H:i:s', strtotime($data)) . " <br>";
-
-                        
-                //         if($status == 'Aguardando'){
-                //             echo "
-                //             <tr>
-                //             <th scope='row'>{$id}</th>
-                //             <td>{$dataBr}</td>
-                //             <td>{$tarefa}</td>
-                //             <td>{$status}</td>
-                //             <td>
-                //             <a href='view.php?id=$id' type='button' class='btn btn-outline-primary'>Visualizar</a>
-                //             <a href='edit.php?id=$id' type='button' class='btn btn-outline-success'>Editar</a>
-                //             <a href='delete.php?id=$id' type='button' class='btn btn-outline-danger'>Deletar</button>
-                //         </td>
-                //         </tr>
-                //             ";
-                //         }
-                        
-                //     }
-                //     ?>
+                   ?>
 
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
 
-
+        </div>
     </div>
 
 

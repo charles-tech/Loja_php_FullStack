@@ -16,6 +16,19 @@ class Todo extends Conn{
         return $retorno;
     }
 
+    public function listWhere():array
+    {
+        $this->conn = $this->connectDb();
+        $query_where = "SELECT id, nome, email,celular,mensagem, creaded FROM contato  where creaded = :creaded ORDER BY id DESC LIMIT 40";
+        $query_where = $this->conn->prepare($query_where);
+        $query_where->bindParam(':creaded', $this->formData['creaded']);
+
+        $query_where->execute();
+        $retorno = $query_where->fetchAll();
+        //var_dump($retorno);
+        return $retorno;
+    }
+
 
    
 

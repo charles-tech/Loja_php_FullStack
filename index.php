@@ -8,6 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!--Import Google Icon Font-->
@@ -27,18 +28,18 @@ session_start();
                 <div class="brand-logo light">Linda Laura</div>
                 <!-- menu Desketop -->
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Produtos</a></li>
-                    <li><a href="">Contatos</a></li>
-                    <li><a href="visualizar.php">Restrito</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="#produto">Produtos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li><a href="restrito.php">Restrito</a></li>
                 </ul>
 
                 <!-- menu mobile -->
                 <ul id="slide-out" class="sidenav">
-                    <li><a href=""> <i class="material-icons left">home</i>Home</a></li>
-                    <li><a href=""> <i class="material-icons left">favorite</i>Produtos</a></li>
-                    <li><a href=""> <i class="material-icons left">call</i>Contatos</a></li>
-                    <li><a href="visualizar.php"> <i class="material-icons left">network_locked</i>Restrito</a></li>
+                    <li><a href="index.php"> <i class="material-icons left">home</i>Home</a></li>
+                    <li><a href="#produto"> <i class="material-icons left">favorite</i>Produtos</a></li>
+                    <li><a href="#contato"> <i class="material-icons left">call</i>Contato</a></li>
+                    <li><a href="restrito.php"> <i class="material-icons left">network_locked</i>Restrito</a></li>
                 </ul>
 
             </div>
@@ -93,7 +94,7 @@ session_start();
     <p>&nbsp;</p>
     <p>&nbsp;</p>
 
-    <div class="row container">
+    <div class="row container" id="produto">
         <!-- card 1 -->
         <div class="card">
             <div class="col s12 m6 l4">
@@ -297,10 +298,13 @@ session_start();
     
     ?>
 
-    <div class="row container">
-        <div class="col s12">
+
+
+    <div class="row container" id="contato">
+        <div class="col s12" id="contato">
             <h3 class="light">Entrar em Contato</h3>
         </div>
+
         <div class="col s12">
 
             <form action="?router=Site/cadastro/" method="post">
@@ -372,7 +376,7 @@ session_start();
     <div class="footer-copyright">
         <div class="container">
             © 2023 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            <a class="grey-text text-lighten-4 right" href="#!">Laura Linda</a>
         </div>
     </div>
 </footer>
